@@ -15,9 +15,15 @@ app.use(cors({
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "widget")));
 
-mongoose.connect(process.env.MONGO_URI)
+console.log("Attempting to connect to MongoDB...");
+mongoose.connect(process.env.MONGO_URI, {
+    serverSelectionTimeoutMS: 5000,
+})
     .then(() => console.log("MongoDB connected!"))
-    .catch(err => console.log("MongoDB error:", err));
+    .catch(err => {
+        console.log("MongoDB connection error:");
+        console.error(err);
+    });
 
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/chatbot", require("./routes/chatbot"));
