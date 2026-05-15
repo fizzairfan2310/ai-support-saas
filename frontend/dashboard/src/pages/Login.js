@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { FiMail, FiLock, FiZap } from "react-icons/fi";
 
-const API = "http://localhost:5000/api";
+const API = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
 
 export default function Login() {
     const [email, setEmail] = useState("");

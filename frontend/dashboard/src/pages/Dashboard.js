@@ -9,7 +9,7 @@ import {
     FiMail, FiSave, FiCode
 } from "react-icons/fi";
 
-const API = "http://localhost:5000/api";
+const API = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
 
 export default function Dashboard() {
     const [chatbot, setChatbot] = useState(null);
