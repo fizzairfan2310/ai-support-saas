@@ -4,15 +4,25 @@ import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import "./App.css";
 
-function App() {
+// This component helps check the token EVERY time you switch pages
+const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem("token");
+  return token ? children : <Navigate to="/login" />;
+};
+
+const PublicRoute = ({ children }) => {
+  const token = localStorage.getItem("token");
+  return token ? <Navigate to="/dashboard" /> : children;
+};
+
+function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={token ? <Navigate to="/dashboard" /> : <Navigate to="/login" />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/dashboard" element={token ? <Dashboard /> : <Navigate to="/login" />} />
+        <Route path="/" element={<Navigate to="/dashboard" />} />
+        <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
+        <Route path="/signup" element={<PublicRoute><Signup /></PublicRoute>} />
+        <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
       </Routes>
     </BrowserRouter>
   );
