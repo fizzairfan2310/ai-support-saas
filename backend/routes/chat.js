@@ -20,6 +20,21 @@ router.post("/:chatbotId", async (req, res) => {
             });
         }
 
+        if (message === "__lead__") {
+            if (sessionId && leadEmail) {
+                await Chat.findByIdAndUpdate(sessionId, { leadName, leadEmail });
+            } else if (leadEmail) {
+                await Chat.create({
+                    chatbotId: chatbot._id,
+                    messages: [],
+                    leadName,
+                    leadEmail
+                });
+            }
+            return res.json({ success: true });
+        }
+
+
         if (leadEmail && sessionId) {
             await Chat.findOneAndUpdate(
                 { _id: sessionId },

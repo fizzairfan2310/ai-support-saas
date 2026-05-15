@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUMIÈRE — Premium Beauty Studio</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --gold: #c9a96e;
+            --gold-light: #e8d5a3;
+            --dark: #080808;
+            --dark-2: #111111;
+            --dark-3: #1a1a1a;
+            --white: #fafafa;
+            --gray: #666;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark);
+            color: var(--white);
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* Custom cursor */
+        .cursor {
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 99999;
+            transition: transform 0.1s;
+        }
+
+        .cursor-follower {
+            width: 32px;
+            height: 32px;
+            border: 1px solid rgba(201, 169, 110, 0.4);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 99998;
+            transition: all 0.15s ease;
+        }
+
+        ::-webkit-scrollbar {
+            width: 3px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold);
+        }
+
+        /* Nav */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 28px 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(8, 8, 8, 0);
+            backdrop-filter: blur(0px);
+            transition: all 0.5s;
+            border-bottom: 1px solid transparent;
+        }
+
+        nav.scrolled {
+            background: rgba(8, 8, 8, 0.9);
+            backdrop-filter: blur(30px);
+            border-color: rgba(201, 169, 110, 0.1);
+            padding: 20px 80px;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            font-weight: 300;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            color: var(--white);
+        }
+
+        .logo em {
+            color: var(--gold);
+            font-style: italic;
+        }
+
+        .nav-center {
+            display: flex;
+            gap: 48px;
+            list-style: none;
+        }
+
+        .nav-center a {
+            font-size: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-center a:hover {
+            color: var(--gold);
+        }
+
+        .nav-book {
+            padding: 12px 28px;
+            background: transparent;
+            color: var(--gold);
+            border: 1px solid rgba(201, 169, 110, 0.4);
+            font-size: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            cursor: none;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .nav-book:hover {
+            background: var(--gold);
+            color: var(--dark);
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 70% 50%, rgba(201, 169, 110, 0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 30% 80%, rgba(201, 169, 110, 0.05) 0%, transparent 50%);
+        }
+
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            opacity: 0.03;
+            background-image: linear-gradient(rgba(201, 169, 110, 1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(201, 169, 110, 1) 1px, transparent 1px);
+            background-size: 80px 80px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            padding: 0 80px;
+            max-width: 800px;
+            padding-top: 100px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid rgba(201, 169, 110, 0.3);
+            padding: 8px 20px;
+            margin-bottom: 48px;
+            font-size: 10px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 500;
+        }
+
+        .hero-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--gold);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scale(1.5);
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(64px, 8vw, 120px);
+            font-weight: 300;
+            line-height: 0.95;
+            margin-bottom: 40px;
+            letter-spacing: -2px;
+        }
+
+        .hero h1 .line-1 {
+            display: block;
+            color: var(--white);
+        }
+
+        .hero h1 .line-2 {
+            display: block;
+            color: var(--gold);
+            font-style: italic;
+        }
+
+        .hero h1 .line-3 {
+            display: block;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .hero-desc {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.4);
+            line-height: 1.9;
+            max-width: 480px;
+            margin-bottom: 56px;
+            font-weight: 300;
+            letter-spacing: 0.3px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .btn-primary-gold {
+            padding: 18px 48px;
+            background: var(--gold);
+            color: var(--dark);
+            border: none;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            cursor: none;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary-gold::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: white;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .btn-primary-gold:hover::after {
+            opacity: 0.1;
+        }
+
+        .btn-ghost {
+            padding: 18px 48px;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            cursor: none;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* Floating stats */
+        .hero-stats {
+            position: absolute;
+            right: 80px;
+            bottom: 80px;
+            display: flex;
+            gap: 1px;
+            z-index: 1;
+        }
+
+        .hero-stat {
+            padding: 28px 36px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(201, 169, 110, 0.1);
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-stat-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 40px;
+            font-weight: 300;
+            color: var(--gold);
+            line-height: 1;
+        }
+
+        .hero-stat-label {
+            font-size: 9px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.3);
+            margin-top: 8px;
+        }
+
+        /* Marquee */
+        .marquee-section {
+            padding: 24px 0;
+            border-top: 1px solid rgba(201, 169, 110, 0.1);
+            border-bottom: 1px solid rgba(201, 169, 110, 0.1);
+            overflow: hidden;
+            background: rgba(201, 169, 110, 0.02);
+        }
+
+        .marquee-track {
+            display: flex;
+            gap: 0;
+            white-space: nowrap;
+            animation: marquee 25s linear infinite;
+        }
+
+        @keyframes marquee {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        .marquee-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 32px;
+            padding: 0 40px;
+            font-size: 11px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.2);
+            font-weight: 500;
+        }
+
+        .marquee-dot {
+            width: 4px;
+            height: 4px;
+            background: var(--gold);
+            border-radius: 50%;
+        }
+
+        /* Services */
+        .services {
+            padding: 140px 80px;
+        }
+
+        .services-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 80px;
+        }
+
+        .label-gold {
+            font-size: 10px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .title-serif {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(40px, 4vw, 60px);
+            font-weight: 300;
+            line-height: 1.1;
+        }
+
+        .title-serif em {
+            font-style: italic;
+            color: var(--gold);
+        }
+
+        .services-link {
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.3);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 4px;
+            transition: all 0.3s;
+        }
+
+        .services-link:hover {
+            color: var(--gold);
+            border-color: var(--gold);
+        }
+
+        .services-list {
+            display: grid;
+            gap: 1px;
+        }
+
+        .service-row {
+            display: grid;
+            grid-template-columns: 60px 1fr auto auto;
+            align-items: center;
+            gap: 40px;
+            padding: 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            cursor: none;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-row::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 0;
+            background: rgba(201, 169, 110, 0.04);
+            transition: width 0.5s;
+        }
+
+        .service-row:hover::before {
+            width: 100%;
+        }
+
+        .service-row:hover .service-row-name {
+            color: var(--gold);
+        }
+
+        .service-row:hover .service-row-arrow {
+            transform: translateX(8px);
+            color: var(--gold);
+        }
+
+        .service-row-num {
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.2);
+            font-weight: 500;
+        }
+
+        .service-row-icon {
+            font-size: 32px;
+        }
+
+        .service-row-info {}
+
+        .service-row-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 32px;
+            font-weight: 300;
+            transition: color 0.3s;
+        }
+
+        .service-row-desc {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.3);
+            margin-top: 4px;
+            font-weight: 300;
+        }
+
+        .service-row-price {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--gold);
+        }
+
+        .service-row-price span {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.3);
+            font-weight: 300;
+            display: block;
+        }
+
+        .service-row-arrow {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.2);
+            transition: all 0.3s;
+        }
+
+        /* Experience */
+        .experience {
+            padding: 140px 80px;
+            background: rgba(255, 255, 255, 0.01);
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .exp-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 120px;
+            align-items: center;
+        }
+
+        .exp-visual {
+            position: relative;
+            aspect-ratio: 3/4;
+            background: var(--dark-3);
+            border: 1px solid rgba(201, 169, 110, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .exp-visual-emoji {
+            font-size: 160px;
+        }
+
+        .exp-visual::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center, rgba(201, 169, 110, 0.1), transparent 70%);
+        }
+
+        .exp-badge {
+            position: absolute;
+            bottom: -1px;
+            right: -1px;
+            background: var(--gold);
+            padding: 24px 32px;
+            color: var(--dark);
+        }
+
+        .exp-badge-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 48px;
+            font-weight: 600;
+            line-height: 1;
+        }
+
+        .exp-badge-label {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 4px;
+            font-weight: 600;
+        }
+
+        .exp-content {}
+
+        .exp-content p {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.4);
+            line-height: 1.9;
+            margin: 24px 0 48px;
+            font-weight: 300;
+        }
+
+        .exp-features {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .exp-feature {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .exp-feature-icon {
+            width: 48px;
+            height: 48px;
+            border: 1px solid rgba(201, 169, 110, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .exp-feature-title {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .exp-feature-desc {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.3);
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 140px 80px;
+        }
+
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            margin-top: 80px;
+        }
+
+        .test-card {
+            padding: 48px 40px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .test-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gold);
+            transform: scaleX(0);
+            transition: transform 0.4s;
+        }
+
+        .test-card:hover {
+            background: rgba(201, 169, 110, 0.03);
+        }
+
+        .test-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .test-stars {
+            color: var(--gold);
+            font-size: 12px;
+            letter-spacing: 4px;
+            margin-bottom: 24px;
+        }
+
+        .test-quote {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+            font-style: italic;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.8;
+            margin-bottom: 32px;
+        }
+
+        .test-author-name {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .test-author-role {
+            font-size: 11px;
+            color: var(--gold);
+            margin-top: 4px;
+            letter-spacing: 1px;
+        }
+
+        /* CTA */
+        .cta-section {
+            padding: 160px 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: 'BOOK';
+            position: absolute;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 300px;
+            font-weight: 600;
+            opacity: 0.02;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            letter-spacing: 20px;
+            white-space: nowrap;
+        }
+
+        .cta-section h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(48px, 6vw, 96px);
+            font-weight: 300;
+            line-height: 1.05;
+            margin: 24px 0 32px;
+            position: relative;
+        }
+
+        .cta-section h2 em {
+            color: var(--gold);
+            font-style: italic;
+        }
+
+        .cta-section p {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.3);
+            margin-bottom: 56px;
+            font-weight: 300;
+        }
+
+        /* Footer */
+        footer {
+            padding: 48px 80px;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .footer-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+        }
+
+        .footer-logo em {
+            color: var(--gold);
+            font-style: italic;
+        }
+
+        .footer-center {
+            text-align: center;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.2);
+            letter-spacing: 1px;
+        }
+
+        .footer-right {
+            text-align: right;
+            font-size: 11px;
+            color: var(--gold);
+            letter-spacing: 2px;
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-up {
+            animation: fadeUp 0.8s ease forwards;
+        }
+
+        .delay-1 {
+            animation-delay: 0.1s;
+            opacity: 0;
+        }
+
+        .delay-2 {
+            animation-delay: 0.2s;
+            opacity: 0;
+        }
+
+        .delay-3 {
+            animation-delay: 0.3s;
+            opacity: 0;
+        }
+
+        .delay-4 {
+            animation-delay: 0.4s;
+            opacity: 0;
+        }
+
+        .delay-5 {
+            animation-delay: 0.6s;
+            opacity: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Custom cursor -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-follower" id="follower"></div>
+
+    <nav id="navbar">
+        <div class="logo">Lumi<em>ère</em></div>
+        <ul class="nav-center">
+            <li><a href="#services">Services</a></li>
+            <li><a href="#experience">About</a></li>
+            <li><a href="#testimonials">Reviews</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="nav-book">Book Now</button>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-grid"></div>
+        <div class="hero-content">
+            <div class="hero-badge fade-up delay-1">Premium Beauty Studio — Lahore</div>
+            <h1 class="fade-up delay-2">
+                <span class="line-1">Where</span>
+                <span class="line-2">Beauty</span>
+                <span class="line-3">Becomes Art.</span>
+            </h1>
+            <p class="hero-desc fade-up delay-3">
+                An intimate luxury studio where every treatment is a masterpiece. Expert artists. Premium products.
+                Transformative results.
+            </p>
+            <div class="hero-actions fade-up delay-4">
+                <button class="btn-primary-gold">Book Appointment</button>
+                <button class="btn-ghost">Explore Services</button>
+            </div>
+        </div>
+        <div class="hero-stats fade-up delay-5">
+            <div class="hero-stat">
+                <div class="hero-stat-num">12K</div>
+                <div class="hero-stat-label">Clients</div>
+            </div>
+            <div class="hero-stat">
+                <div class="hero-stat-num">15</div>
+                <div class="hero-stat-label">Years</div>
+            </div>
+            <div class="hero-stat">
+                <div class="hero-stat-num">4.9</div>
+                <div class="hero-stat-label">Rating</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Marquee -->
+    <div class="marquee-section">
+        <div class="marquee-track">
+            <span class="marquee-item">Hair Styling <span class="marquee-dot"></span></span>
+            <span class="marquee-item">Color & Highlights <span class="marquee-dot"></span></span>
+            <span class="marquee-item">Nail Studio <span class="marquee-dot"></span></span>
+            <span class="marquee-item">Facial Treatments <span class="marquee-dot"></span></span>
+            <span class="marquee-item">Bridal Packages <span class="marquee-dot"></span></span>
+            <span class="marquee-item">Luxury Experience <span class="marquee-dot"></span></span>
+            <span class="marquee-item">Hair Styling <span class="marquee-dot"></span></span>
+            <span class="marquee-item">Color & Highlights <span class="marquee-dot"></span></span>
+            <span class="marquee-item">Nail Studio <span class="marquee-dot"></span></span>
+            <span class="marquee-item">Facial Treatments <span class="marquee-dot"></span></span>
+            <span class="marquee-item">Bridal Packages <span class="marquee-dot"></span></span>
+            <span class="marquee-item">Luxury Experience <span class="marquee-dot"></span></span>
+        </div>
+    </div>
+
+    <!-- Services -->
+    <section class="services" id="services">
+        <div class="services-header">
+            <div>
+                <p class="label-gold">What We Offer</p>
+                <h2 class="title-serif">Our <em>Signature</em><br>Services</h2>
+            </div>
+            <a href="#" class="services-link">View All Services →</a>
+        </div>
+        <div class="services-list">
+            <div class="service-row">
+                <div class="service-row-num">01</div>
+                <div>
+                    <div class="service-row-name">Hair Styling</div>
+                    <div class="service-row-desc">Expert cuts, blowouts & styling from master stylists</div>
+                </div>
+                <div class="service-row-price">Rs 1,500 <span>per session</span></div>
+                <div class="service-row-arrow">→</div>
+            </div>
+            <div class="service-row">
+                <div class="service-row-num">02</div>
+                <div>
+                    <div class="service-row-name">Color & Highlights</div>
+                    <div class="service-row-desc">Balayage, ombre, highlights & full color treatments</div>
+                </div>
+                <div class="service-row-price">Rs 3,500 <span>per session</span></div>
+                <div class="service-row-arrow">→</div>
+            </div>
+            <div class="service-row">
+                <div class="service-row-num">03</div>
+                <div>
+                    <div class="service-row-name">Nail Studio</div>
+                    <div class="service-row-desc">Gel, acrylic, nail art & luxury manicure treatments</div>
+                </div>
+                <div class="service-row-price">Rs 2,000 <span>per session</span></div>
+                <div class="service-row-arrow">→</div>
+            </div>
+            <div class="service-row">
+                <div class="service-row-num">04</div>
+                <div>
+                    <div class="service-row-name">Skin & Facial</div>
+                    <div class="service-row-desc">Deep cleansing, hydration & anti-aging treatments</div>
+                </div>
+                <div class="service-row-price">Rs 4,000 <span>per session</span></div>
+                <div class="service-row-arrow">→</div>
+            </div>
+            <div class="service-row">
+                <div class="service-row-num">05</div>
+                <div>
+                    <div class="service-row-name">Bridal Package</div>
+                    <div class="service-row-desc">Complete bridal beauty — hair, makeup, nails & skincare</div>
+                </div>
+                <div class="service-row-price">Rs 15,000 <span>per package</span></div>
+                <div class="service-row-arrow">→</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience -->
+    <section class="experience" id="experience">
+        <div class="exp-grid">
+            <div class="exp-visual">
+                <div class="exp-visual-emoji">💇‍♀️</div>
+                <div class="exp-badge">
+                    <div class="exp-badge-num">15</div>
+                    <div class="exp-badge-label">Years of Excellence</div>
+                </div>
+            </div>
+            <div class="exp-content">
+                <p class="label-gold">Our Philosophy</p>
+                <h2 class="title-serif">The <em>Lumière</em><br>Experience</h2>
+                <p>We believe beauty is deeply personal. Every client walks in with a unique vision — our master artists
+                    bring it to life with precision, creativity, and care.</p>
+                <div class="exp-features">
+                    <div class="exp-feature">
+                        <div class="exp-feature-icon">👑</div>
+                        <div>
+                            <div class="exp-feature-title">Premium Products Only</div>
+                            <div class="exp-feature-desc">Kerastase, Olaplex, and the world's finest beauty brands</div>
+                        </div>
+                    </div>
+                    <div class="exp-feature">
+                        <div class="exp-feature-icon">🎓</div>
+                        <div>
+                            <div class="exp-feature-title">Internationally Certified Artists</div>
+                            <div class="exp-feature-desc">5+ years experience, trained in London and Dubai</div>
+                        </div>
+                    </div>
+                    <div class="exp-feature">
+                        <div class="exp-feature-icon">🌿</div>
+                        <div>
+                            <div class="exp-feature-title">Eco-Friendly & Cruelty Free</div>
+                            <div class="exp-feature-desc">Sustainable practices, no harmful chemicals</div>
+                        </div>
+                    </div>
+                    <div class="exp-feature">
+                        <div class="exp-feature-icon">✨</div>
+                        <div>
+                            <div class="exp-feature-title">Private Suite Available</div>
+                            <div class="exp-feature-desc">Exclusive private experience for brides and VIP clients</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <p class="label-gold">Client Stories</p>
+        <h2 class="title-serif">What They <em>Say</em></h2>
+        <div class="test-grid">
+            <div class="test-card">
+                <div class="test-stars">★ ★ ★ ★ ★</div>
+                <div class="test-quote">"Absolutely transformative. The team understood exactly what I wanted — beyond
+                    expectations."</div>
+                <div class="test-author-name">Sarah Ahmed</div>
+                <div class="test-author-role">Regular Client since 2019</div>
+            </div>
+            <div class="test-card">
+                <div class="test-stars">★ ★ ★ ★ ★</div>
+                <div class="test-quote">"The only salon I trust for color. My balayage is stunning — everyone asks where
+                    I got it done."</div>
+                <div class="test-author-name">Fatima Khan</div>
+                <div class="test-author-role">Color Specialist Client</div>
+            </div>
+            <div class="test-card">
+                <div class="test-stars">★ ★ ★ ★ ★</div>
+                <div class="test-quote">"The bridal package was worth every penny. I felt like royalty on my wedding
+                    day. Simply magical."</div>
+                <div class="test-author-name">Ayesha Malik</div>
+                <div class="test-author-role">Bridal Package Client</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section" id="contact">
+        <p class="label-gold">Begin Your Journey</p>
+        <h2>Ready for Your<br><em>Transformation?</em></h2>
+        <p>Book your appointment today. Our team will reach out within 2 hours.</p>
+        <button class="btn-primary-gold" style="padding: 20px 64px; font-size: 11px;">Book Appointment</button>
+    </section>
+
+    <footer>
+        <div class="footer-logo">Lumi<em>ère</em></div>
+        <div class="footer-center">© 2024 Lumière Salon. All rights reserved.</div>
+        <div class="footer-right">DHA Lahore • Mon–Sat 10am–8pm</div>
+    </footer>
+
+    <!-- CHATBOT WIDGET -->
+    <script src="http://localhost:5000/widget.js" data-chatbot-id="69fae15fd9315707088ecae8"></script>
+
+    <script>
+        // Custom cursor
+        const cursor = document.getElementById('cursor');
+        const follower = document.getElementById('follower');
+        document.addEventListener('mousemove', e => {
+            cursor.style.left = e.clientX - 4 + 'px';
+            cursor.style.top = e.clientY - 4 + 'px';
+            setTimeout(() => {
+                follower.style.left = e.clientX - 16 + 'px';
+                follower.style.top = e.clientY - 16 + 'px';
+            }, 80);
+        });
+
+        // Nav scroll effect
+        window.addEventListener('scroll', () => {
+            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+        });
+    </script>
+
+</body>
+
+</html>
