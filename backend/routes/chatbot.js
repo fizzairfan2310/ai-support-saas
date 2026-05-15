@@ -35,7 +35,9 @@ router.put("/", auth, async (req, res) => {
 // Embed code
 router.get("/embed", auth, async (req, res) => {
     const chatbot = await Chatbot.findOne({ userId: req.userId });
-    const embedCode = `<script src="http://localhost:5000/widget.js" data-chatbot-id="${chatbot._id}"></script>`;
+    const host = req.get("host");
+    const protocol = req.protocol;
+    const embedCode = `<script src="${protocol}://${host}/widget.js" data-chatbot-id="${chatbot._id}"></script>`;
     res.json({ embedCode, chatbotId: chatbot._id });
 });
 

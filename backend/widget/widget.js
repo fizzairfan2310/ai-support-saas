@@ -1,7 +1,9 @@
 (function () {
   const scriptTag = document.currentScript;
   const chatbotId = scriptTag.getAttribute("data-chatbot-id");
-  const API = "http://localhost:5000/api";
+  const scriptSrc = scriptTag.src;
+  const scriptUrl = new URL(scriptSrc);
+  const API = `${scriptUrl.origin}/api`;
 
   let history = [];
   let sessionId = null;

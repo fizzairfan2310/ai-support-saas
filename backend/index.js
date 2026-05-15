@@ -13,7 +13,7 @@ app.use(cors({
 }));
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "../widget")));
+app.use(express.static(path.join(__dirname, "widget")));
 
 mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log("MongoDB connected!"))
